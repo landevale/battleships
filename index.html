@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://code.jquery.com/jquery-3.6.1.min.js"
+      integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" defer src="/main.js" crossorigin="anonymous"></script>
+    <title>Battleships!</title>
+  </head>
+  <body>
+    <div class="page" id="startPage">
+      <h1>Welcome to Battleships!</h1>
+      <button class="buttons" id="startButton">Start Game</button>
+    </div>
+    <div class="page" id="setUpPage">
+      <h2>Set Up Fleet</h2>
+      <br />
+      <h3>Click to rotate</h3>
+      <button class="buttons" id="confirmButton">Confirm Fleet</button>
+      <div class="divGrid" id="setUpGridDiv"></div>
+    </div>
+    <div class="page" id="gamePage">
+      <h2>Game Page</h2>
+      <br />
+      <h3>
+        Turn :
+        <h3 id="turnCount">1</h3>
+      </h3>
+      <h3 id="infoDisplay"></h3>
+      <div class="divGrid" id="userGridDiv"></div>
+      <div class="divGrid" id="compGridDiv"></div>
+    </div>
+    <!-- <div class="page" id="endPage"></div> -->
+  </body>
+</html>
