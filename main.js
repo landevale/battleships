@@ -135,20 +135,20 @@ const shipArray = [
 
 console.log(shipArray[2].size);
 
-let userPatrolCount = shipArray[0].size;
+// let userPatrolCount = shipArray[0].size;
 // userPatrolCount--;
 // console.log(userPatrolCount);
 // console.log(shipArray[0].size);
-let userSubmarineCount = 0;
-let userDestoryerCount = 0;
-let userBattleshipCount = 0;
-let userCarrierCount = 0;
+// let userSubmarineCount = 0;
+// let userDestoryerCount = 0;
+// let userBattleshipCount = 0;
+// let userCarrierCount = 0;
 
-let compPatrolCount = 0;
-let compSubmarineCount = 0;
-let compDestroyerCount = 0;
-let compBattleshipCount = 0;
-let compCarrierCount = 0;
+// let compPatrolCount = 0;
+// let compSubmarineCount = 0;
+// let compDestroyerCount = 0;
+// let compBattleshipCount = 0;
+// let compCarrierCount = 0;
 
 const gameBoard = [
   [1, 1, 0, 0, 0, 0, 0, 1, 0, 1],
@@ -247,7 +247,7 @@ const targetGrid = clickableGrid(10, 10, function (el, row, col, num) {
   const checkShip = (y, x) => {
     if (gameBoard[y][x] === 1);
     {
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < shipArray.length; i++) {
         // loop thru the ships in shipArr
         for (let j = 0; j < shipArray[i].size; j++)
           if (
