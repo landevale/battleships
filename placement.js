@@ -80,7 +80,7 @@ const gameBoard = [
 // ];
 
 // //   let current = ship.directions[randomDirection];
-let getRandomInt = () => Math.floor(Math.random() * 10);
+const getRandomInt = () => Math.floor(Math.random() * 10);
 
 //console.log(getRandomInt());
 let row = getRandomInt();
@@ -96,51 +96,49 @@ console.log("1 is horizontal, 2 is vertical: " + randomDirection);
 // Checks to see if the placement of a ship is legal
 // Returns boolean
 const isLegal = (row, col, direction, ship) => {
-  // first, check if the ship is within the grid...
-  if (withinBounds(row, col, direction, ship) === true) {
-    // ...then check to make sure it doesn't collide with another ship
-    for (let i = 0; i < ship.size; i++) {
-      if (direction === 1) {
-        if (
-          gameBoard[row][col + i] === undefined ||
-          gameBoard[row][col + i] !== 0
-        ) {
-          return false;
-        } else if (direction === 2) {
-          if (
-            gameBoard[row + i][col] === undefined ||
-            gameBoard[row + i][col] !== 0
-          )
-            return false;
+  // ...then check to make sure it doesn't collide with another ship
+  for (let i = 0; i < ship.size; i++) {
+    if (direction === 1) {
+      if (gameBoard[row][col + i] === 0) {
+        console.log("Legal true Horizontal");
+        return true;
+      } else if (direction === 2) {
+        if (gameBoard[row + i][col] === 0) {
+          console.log("Legal true Vert");
+          return true;
         } else {
+          console.log("LEGAL FAIL 1");
           return false;
         }
-        return true;
       } else {
+        console.log("LEGAL FAIL 2");
         return false;
       }
     }
-    return true;
-  } else {
-    return false;
   }
 };
 // Checks to see if the ship is within bounds of the grid
 // Returns boolean
 const withinBounds = (row, col, direction, ship) => {
+  console.log(`COL: ${col} + SHIP SIZE: ${ship.size}`);
+  console.log(`ROW: ${row} + SHIP SIZE: ${ship.size}`);
+  console.log(direction);
   if (direction === 1 && col + ship.size < 10) {
+    console.log("Bounds true Hori");
     return true;
   } else if (direction === 2 && row + ship.size < 10) {
+    console.log("Bounds true Vert");
     return true;
   } else {
+    console.log("BOUNDS FAIL");
     return false;
   }
 };
 
 // // console.log(withinBounds(1, 1, 1, shipArray[4])); // working
-console.log(
-  `${shipArray[4].name} ${isLegal(row, col, randomDirection, shipArray[4])}`
-);
+// console.log(
+//   `${shipArray[4].name} ${isLegal(row, col, randomDirection, shipArray[4])}`
+// );
 // working with random start && horizontally and vertically
 
 // can updateGrid after checkLegal
@@ -165,14 +163,14 @@ const updateShipCoord = (row, col, direction, ship) => {
   if (direction === 1) {
     // horizontal
     for (let i = 0; i < ship.size; i++) {
-      let cellCoord = [row + i, col];
+      let cellCoord = [row, col + i];
 
       ship.coordinates.push(cellCoord);
     }
   } else if (direction === 2) {
     //vertical
     for (let i = 0; i < ship.size; i++) {
-      let cellCoord = [row, col + i];
+      let cellCoord = [row + i, col];
       ship.coordinates.push(cellCoord);
     }
   }
@@ -228,14 +226,21 @@ const placeShips2 = (arr) => {
     console.log("Col: " + col);
     let direction = Math.floor(Math.random() * 2 + 1);
     console.log("Direction: " + direction);
+    console.log(arr[j]);
     ///////////////
     /////////////
     // while not legal, re-generate a row and col
-    while (isLegal(row, col, direction, arr[j]) === false) {
+    while (
+      withinBounds(row, col, direction, arr[j]) === false ||
+      isLegal(row, col, direction, arr[j]) === false
+    ) {
+      //   while (isLegal(row, col, direction, arr[j]) === false) {
+
       row = getRandomInt();
       col = getRandomInt();
       direction = Math.floor(Math.random() * 2 + 1);
       console.log(`While loop running FALSE`);
+      //   }
     }
     updateGrid(row, col, direction, arr[j]);
     updateShipCoord(row, col, direction, arr[j]);
@@ -244,7 +249,6 @@ const placeShips2 = (arr) => {
 
 placeShips2(shipArray);
 // console.log(gameBoard);
-console.log(gameBoard);
 console.log(shipArray[0].coordinates);
 console.log(shipArray[1].coordinates);
 console.log(shipArray[2].coordinates);
