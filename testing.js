@@ -95,7 +95,7 @@ console.log("1 is horizontal, 2 is vertical: " + randomDirection);
 
 // Checks to see if the placement of a ship is legal
 // Returns boolean
-const isLegal = (row, col, direction, ship) => {
+const checkOverlap = (row, col, direction, ship) => {
   // first, check if the ship is within the grid...
   if (withinBounds(row, col, direction, ship) === true) {
     // ...then check to make sure it doesn't collide with another ship
@@ -139,7 +139,12 @@ const withinBounds = (row, col, direction, ship) => {
 
 // // console.log(withinBounds(1, 1, 1, shipArray[4])); // working
 console.log(
-  `${shipArray[4].name} ${isLegal(row, col, randomDirection, shipArray[4])}`
+  `${shipArray[4].name} ${checkOverlap(
+    row,
+    col,
+    randomDirection,
+    shipArray[4]
+  )}`
 );
 // working with random start && horizontally and vertically
 
@@ -231,7 +236,7 @@ const placeShips2 = (arr) => {
     ///////////////
     /////////////
     // while not legal, re-generate a row and col
-    while (isLegal(row, col, direction, arr[j]) === false) {
+    while (checkOverlap(row, col, direction, arr[j]) === false) {
       row = getRandomInt();
       col = getRandomInt();
       direction = Math.floor(Math.random() * 2 + 1);

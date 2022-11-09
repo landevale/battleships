@@ -95,7 +95,7 @@ let randomDirection = Math.floor(Math.random() * 2 + 1);
 
 // Checks to see if the placement of a ship is legal
 // Returns boolean
-const isLegal = (row, col, direction, ship) => {
+const checkOverlap = (row, col, direction, ship) => {
   // ship = shipArray[j]
   // ...then check to make sure it doesn't collide with another ship
   if (direction === 1) {
@@ -128,10 +128,10 @@ const withinBounds = (row, col, direction, ship) => {
   console.log(`COL: ${col} + SHIP SIZE: ${ship.size}`);
   console.log(`ROW: ${row} + SHIP SIZE: ${ship.size}`);
   console.log(direction);
-  if (direction === 1 && col + ship.size < 10) {
+  if (direction === 1 && col + ship.size - 1 < 10) {
     console.log("Bounds true Hori");
     return true;
-  } else if (direction === 2 && row + ship.size < 10) {
+  } else if (direction === 2 && row + ship.size - 1 < 10) {
     console.log("Bounds true Vert");
     return true;
   } else {
@@ -237,7 +237,7 @@ const placeShips2 = (arr) => {
     // while not legal, re-generate a row and col
     while (
       withinBounds(row, col, direction, arr[j]) === false || //! changed or || to and &&
-      isLegal(row, col, direction, arr[j]) === false
+      checkOverlap(row, col, direction, arr[j]) === false
     ) {
       //   while (isLegal(row, col, direction, arr[j]) === false) {
 
