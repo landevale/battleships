@@ -64,6 +64,7 @@ const userShipArray = [
       // [0, 1],
     ],
     life: 2,
+    isPlaced: false,
   },
   {
     name: "submarine",
@@ -74,6 +75,7 @@ const userShipArray = [
       // [4, 2],
     ],
     life: 3,
+    isPlaced: false,
   },
   {
     name: "destroyer",
@@ -84,6 +86,7 @@ const userShipArray = [
       // [2, 9],
     ],
     life: 3,
+    isPlaced: false,
   },
   {
     name: "battleship",
@@ -95,6 +98,7 @@ const userShipArray = [
       // [3, 7],
     ],
     life: 4,
+    isPlaced: false,
   },
   {
     name: "carrier",
@@ -107,37 +111,61 @@ const userShipArray = [
       // [9, 5],
     ],
     life: 5,
+    isPlaced: false,
   },
 ];
 
-const userBoard = [
-  [1, 1, 0, 0, 0, 0, 0, 1, 0, 1],
-  [0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
-  [0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
-  [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
-  [1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 1, 1, 1, 1, 1, 0, 0, 0, 0],
-];
-
+// // For testing
 // const userBoard = [
+//   [1, 1, 0, 0, 0, 0, 0, 1, 0, 1],
+//   [0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
+//   [0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
+//   [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+//   [1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
 //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 1, 1, 1, 1, 1, 0, 0, 0, 0],
 // ];
 
-let userDirection = 2;
+const userBoard = [
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+];
+
+let userDirection = 1;
+
+const rotateButton = document.getElementById("rotate");
+const rotate = () => {
+  if (userDirection === 1) {
+    userDirection = 2;
+    rotateButton.innerHTML = "Click to Rotate: Now Vertical";
+    console.log("Changed Direction to " + userDirection);
+  } else if (userDirection === 2) {
+    userDirection = 1;
+    console.log("Changed Direction to " + userDirection);
+    rotateButton.innerHTML = "Click to Rotate: Now Horizontal";
+  } else {
+    return false;
+  }
+};
+rotateButton.addEventListener("click", rotate, false);
+
 let userShip = userShipArray[4];
+
+//! Add event listener for the list of shits
+//! And on mouse over the cells, should change colours based on R/C, ship length, direction
+//! If I have time... should show a different color if illegal placement (outside grid or overlap)
+//! Eventlistener for cellsMouseover, mouseleave etc.
 
 const userCheckOverlap = (row, col, userDirection, userShip) => {
   // ship = shipArray[j]
@@ -195,9 +223,11 @@ const userUpdateGrid = (row, col, userDirection, userShip) => {
     if (userDirection === 1) {
       // horizontal
       userBoard[row][col + i] = 1;
+      document.getElementById(`r${row}c${col + i}`).className = "placed";
     } else if (userDirection === 2) {
       //vertical
       userBoard[row + i][col] = 1;
+      document.getElementById(`r${row + i}c${col}`).className = "placed";
     } else {
       return false;
     }
@@ -212,27 +242,53 @@ const userUpdateShipCoord = (row, col, userDirection, userShip) => {
     // horizontal
     for (let i = 0; i < userShip.size; i++) {
       let cellCoord = [row, col + i];
-
       userShip.coordinates.push(cellCoord);
+      userShip.isPlaced = true;
+      console.log("IS PLACED" + userShip.isPlaced);
     }
   } else if (userDirection === 2) {
     //vertical
     for (let i = 0; i < userShip.size; i++) {
       let cellCoord = [row + i, col];
       userShip.coordinates.push(cellCoord);
+      userShip.isPlaced = true;
+      console.log("IS PLACED" + userShip.isPlaced);
     }
   }
 };
 
-function userClickableGrid(rows, cols, callback) {
+// const updateUserGrid = () => {
+//   document.getElementById("setUpGrid").rows[0].cells;
+// }
+
+// const mouseOverColor = (row, col, userDirection, userShip) => {
+//   if (
+//     userWithinBounds(row, col, userDirection, userShip) === true &&
+//     userCheckOverlap(row, col, userDirection, userShip) === true
+//   )
+//     for (let i = 0; i < userShip.size; i++) {
+//       if (userDirection === 1) {
+//         // horizontal
+//         document.getElementById(`r${row}c${col + i}`).className = "legal";
+//       } else if (userDirection === 2) {
+//         //vertical
+//         document.getElementById(`r${row + i}c${col}`).className = "legal";
+//         // Add class for all cells up to ship's length
+//       }
+//     }
+// };
+
+const userClickableGrid = (rows, cols, callback) => {
   // var i = 0;
-  var grid = document.createElement("table"); // $("<table>");
+  let grid = document.createElement("table"); // $("<table>");
   grid.className = "setUpGrid";
-  for (var r = 0; r < rows; ++r) {
-    var tr = grid.appendChild(document.createElement("tr"));
-    for (var c = 0; c < cols; ++c) {
-      var cell = tr.appendChild(document.createElement("td"));
+  grid.setAttribute("id", "setUpGridID");
+  for (let r = 0; r < rows; ++r) {
+    let tr = grid.appendChild(document.createElement("tr"));
+    for (let c = 0; c < cols; ++c) {
+      let cell = tr.appendChild(document.createElement("td"));
       cell.innerHTML = userBoard[r][c]; //++i
+      cell.setAttribute("id", `r${r}c${c}`);
       let i = userBoard[r][c];
       cell.addEventListener(
         "click",
@@ -244,10 +300,14 @@ function userClickableGrid(rows, cols, callback) {
         })(cell, r, c, i),
         { once: false } // number of times you can click on the cell
       );
+      // cell.addEventListener(
+      //   "mouseover",
+      //   mouseOverColor(r, c, userDirection, userShip)
+      // );
     }
   }
   return grid;
-}
+};
 
 const userPlacementGrid = userClickableGrid(
   10,
@@ -268,7 +328,15 @@ const userPlacementGrid = userClickableGrid(
       userUpdateShipCoord(row, col, userDirection, userShip);
       console.log(userBoard);
       console.log(userShip.coordinates);
+
       //! Update HTML table here
+
+      for (let r = 0; r < 10; r++) {
+        for (let c = 0; c < 10; c++) {
+          document.getElementById(`r${r}c${c}`).innerHTML = userBoard[r][c];
+        }
+      }
+      //
     } else {
       console.log("CB FALSE");
       return false;

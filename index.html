@@ -15,6 +15,17 @@
   <body>
     <div class="page" id="startPage">
       <h1>Welcome to Battleships!</h1>
+      <div class="razar">
+        <div class="ringbase ring1"></div>
+        <div class="ringbase ring2"></div>
+        <div class="pulse"></div>
+        <div class="pointer">
+          <div></div>
+        </div>
+        <div class="dot pos1"></div>
+        <div class="dot pos2"></div>
+      </div>
+
       <button class="buttons" id="startButton">Start Game</button>
     </div>
     <div class="page" id="setUpPage">
@@ -28,7 +39,7 @@
         <li id="carrier">Aircraft Carrier</li>
       </ul>
       <br />
-      <h3>Click to rotate</h3>
+      <h3 id="rotate">Click to rotate: Now Horizontal</h3>
       <button class="buttons" id="confirmButton">Confirm Fleet</button>
       <div class="divGrid" id="setUpGridDiv"></div>
     </div>
