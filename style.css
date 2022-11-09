@@ -14,6 +14,10 @@ h3 {
   display: inline;
 }
 
+li {
+  list-style: none; /*removes the original numbering.*/
+}
+
 /* .grid {
   height: 200px;
   width: 200px;

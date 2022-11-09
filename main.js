@@ -160,7 +160,36 @@ const rotate = () => {
 };
 rotateButton.addEventListener("click", rotate, false);
 
-let userShip = userShipArray[4];
+//need to find event target
+let userShip = userShipArray[0];
+
+const currentPlacing = document.getElementById("currentplace");
+
+const placePatrolBoat = document.getElementById("patrolboat");
+placePatrolBoat.addEventListener("click", function () {
+  currentPlacing.innerHTML = "Now Placing: Patrol Boat";
+  userShip = userShipArray[0];
+});
+const placeSubmarine = document.getElementById("submarine");
+placeSubmarine.addEventListener("click", function () {
+  currentPlacing.innerHTML = "Now Placing: Submarine";
+  userShip = userShipArray[1];
+});
+const placeDestroyer = document.getElementById("destroyer");
+placeDestroyer.addEventListener("click", function () {
+  currentPlacing.innerHTML = "Now Placing: Destroyer";
+  userShip = userShipArray[2];
+});
+const placeBattleship = document.getElementById("battleship");
+placeBattleship.addEventListener("click", function () {
+  currentPlacing.innerHTML = "Now Placing: Battleship";
+  userShip = userShipArray[3];
+});
+const placeCarrier = document.getElementById("carrier");
+placeCarrier.addEventListener("click", function () {
+  currentPlacing.innerHTML = "Now Placing: Carrier";
+  userShip = userShipArray[4];
+});
 
 //! Add event listener for the list of shits
 //! And on mouse over the cells, should change colours based on R/C, ship length, direction
@@ -328,7 +357,7 @@ const userPlacementGrid = userClickableGrid(
       userUpdateShipCoord(row, col, userDirection, userShip);
       console.log(userBoard);
       console.log(userShip.coordinates);
-
+      setUpDisplay.innerHTML = `You placed your ${userShip.name}!`;
       //! Update HTML table here
 
       for (let r = 0; r < 10; r++) {
@@ -338,6 +367,7 @@ const userPlacementGrid = userClickableGrid(
       }
       //
     } else {
+      setUpDisplay.innerHTML = "You can't place ship here!";
       console.log("CB FALSE");
       return false;
     }
