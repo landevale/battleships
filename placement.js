@@ -84,37 +84,42 @@ const getRandomInt = () => Math.floor(Math.random() * 10);
 
 //console.log(getRandomInt());
 let row = getRandomInt();
-console.log("ROW: " + row);
+// console.log("ROW: " + row);
 let col = getRandomInt();
-console.log("COL: " + col);
+// console.log("COL: " + col);
 // // let randomStart = gameBoard[y][x];
 // console.log(`Row: ${rows} & Col: ${col}`);
 
 let randomDirection = Math.floor(Math.random() * 2 + 1);
-console.log("1 is horizontal, 2 is vertical: " + randomDirection);
+// console.log("1 is horizontal, 2 is vertical: " + randomDirection);
 
 // Checks to see if the placement of a ship is legal
 // Returns boolean
 const isLegal = (row, col, direction, ship) => {
+  // ship = shipArray[j]
   // ...then check to make sure it doesn't collide with another ship
-  for (let i = 0; i < ship.size; i++) {
-    if (direction === 1) {
-      if (gameBoard[row][col + i] === 0) {
+  if (direction === 1) {
+    for (let k = 0; k < ship.size; k++) {
+      if (gameBoard[row][col + k] === 0) {
+        //! remove return true, it was check the first and if true, breaking out of the loop and returning true
         console.log("Legal true Horizontal");
-        return true;
-      } else if (direction === 2) {
-        if (gameBoard[row + i][col] === 0) {
-          console.log("Legal true Vert");
-          return true;
-        } else {
-          console.log("LEGAL FAIL 1");
-          return false;
-        }
       } else {
-        console.log("LEGAL FAIL 2");
+        console.log("Legal false Horizontal");
         return false;
       }
     }
+  } else if (direction === 2) {
+    for (let l = 0; l < ship.size; l++) {
+      if (gameBoard[row + l][col] === 0) {
+        console.log("Legal true Vert");
+      } else {
+        console.log("Legal false Vert");
+        return false;
+      }
+    }
+  } else {
+    console.log("LEGAL FAIL");
+    return false;
   }
 };
 // Checks to see if the ship is within bounds of the grid
@@ -231,7 +236,7 @@ const placeShips2 = (arr) => {
     /////////////
     // while not legal, re-generate a row and col
     while (
-      withinBounds(row, col, direction, arr[j]) === false ||
+      withinBounds(row, col, direction, arr[j]) === false || //! changed or || to and &&
       isLegal(row, col, direction, arr[j]) === false
     ) {
       //   while (isLegal(row, col, direction, arr[j]) === false) {
@@ -242,7 +247,9 @@ const placeShips2 = (arr) => {
       console.log(`While loop running FALSE`);
       //   }
     }
+    console.log("##UPDATING SHIP GRID");
     updateGrid(row, col, direction, arr[j]);
+    console.log("##UPDATING SHIP COORDS");
     updateShipCoord(row, col, direction, arr[j]);
   }
 };
@@ -254,3 +261,4 @@ console.log(shipArray[1].coordinates);
 console.log(shipArray[2].coordinates);
 console.log(shipArray[3].coordinates);
 console.log(shipArray[4].coordinates);
+// console.log(gameBoard);
