@@ -851,6 +851,58 @@ function clickableGrid(rows, cols, callback) {
   return grid;
 }
 
+const compCheckShip = (y, x) => {
+  if (userBoard[y][x] === 1) {
+    for (let i = 0; i < userShipArray.length; i++) {
+      // loop thru the ships in shipArr
+      for (let j = 0; j < userShipArray[i].size; j++)
+        if (
+          y === userShipArray[i].coordinates[0 + j][0] &&
+          x === userShipArray[i].coordinates[0 + j][1]
+        ) {
+          console.log(userShipArray[i].name);
+          userShipArray[i].life -= 1;
+          console.log(userShipArray[i].life);
+          console.log("Computer hit!");
+          compDisplay.innerHTML = "Computer hit!";
+          document.getElementById(`y${y}x${x}`).className = "hit"; //! How to change cell class maybe use yx to target.
+          function compCheckForWins() {
+            if (userShipArray[i].life === 0) {
+              console.log(`Computer sunk your ${userShipArray[i].name}!`);
+              compDisplay.innerHTML = `Computer sunk your ${userShipArray[i].name}!`;
+              if (
+                userShipArray[0].life +
+                  userShipArray[1].life +
+                  userShipArray[2].life +
+                  userShipArray[3].life +
+                  userShipArray[4].life ===
+                0
+              ) {
+                console.log("COMPUTER WINS");
+                compDisplay.innerHTML = "COMPUTER WINS!";
+              }
+            }
+          }
+          compCheckForWins();
+          return;
+        }
+    }
+  } else {
+    console.log("Computer missed.");
+    compDisplay.innerHTML = "Computer missed.";
+    document.getElementById(`y${y}x${x}`).className = "missed";
+    return;
+  }
+};
+
+const compTurn = () => {
+  let hitRow = getRandomInt();
+  console.log(hitRow);
+  let hitCol = getRandomInt();
+  console.log(hitCol);
+  compCheckShip(hitRow, hitCol);
+};
+
 const targetGrid = clickableGrid(10, 10, function (el, row, col, num) {
   infoDisplay.innerHTML = ``;
   turnCounter++;
@@ -874,6 +926,8 @@ const targetGrid = clickableGrid(10, 10, function (el, row, col, num) {
             console.log(shipArray[i].life);
             infoDisplay.innerHTML = "It's a hit!";
             el.className = "hit";
+            // compTurn(); /! might be causing computer to take 2 turns
+
             function checkForWins() {
               if (shipArray[i].life === 0) {
                 infoDisplay.innerHTML = `You sunk the enemy's ${shipArray[i].name}!`;
@@ -891,6 +945,7 @@ const targetGrid = clickableGrid(10, 10, function (el, row, col, num) {
               }
             }
             checkForWins();
+
             return;
           } else {
             infoDisplay.innerHTML = "You missed.";
@@ -902,7 +957,7 @@ const targetGrid = clickableGrid(10, 10, function (el, row, col, num) {
     //if (gameBoard[row][col] !== "S");
   };
   checkShip(row, col);
-
+  compTurn();
   // if (lastClicked) lastClicked.className = "";
   // lastClicked = el;
 });

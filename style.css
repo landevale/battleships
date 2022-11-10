@@ -31,6 +31,7 @@ li {
 .setUpGrid {
   margin: 1em auto;
   border-collapse: collapse;
+  background-color: mediumseagreen;
 }
 .setUpGrid td {
   cursor: pointer;
@@ -39,7 +40,7 @@ li {
   border: 1px solid #ccc;
   text-align: center;
   font-family: sans-serif;
-  font-size: 13px;
+  font-size: 0;
   /* change to 0 to hide */
 }
 .setUpGrid td.overlap {
@@ -48,7 +49,7 @@ li {
   color: yellow;
   text-align: center;
   font-family: sans-serif;
-  font-size: 13px;
+  font-size: 0;
 }
 
 .setUpGrid td.legal {
@@ -57,21 +58,22 @@ li {
   color: white;
   text-align: center;
   font-family: sans-serif;
-  font-size: 13px;
+  font-size: 0;
 }
 
 .setUpGrid td.placed {
-  background-color: blue;
+  background-color: slategrey;
   font-weight: bold;
   color: white;
   text-align: center;
   font-family: sans-serif;
-  font-size: 13px;
+  font-size: 0;
 }
 
 .targetGrid {
   margin: 1em auto;
   border-collapse: collapse;
+  background-color: mediumseagreen;
 }
 .targetGrid td {
   cursor: pointer;
@@ -80,7 +82,7 @@ li {
   border: 1px solid #ccc;
   text-align: center;
   font-family: sans-serif;
-  font-size: 13px;
+  font-size: 0;
   /* change to 0 to hide */
 }
 .targetGrid td.hit {
@@ -90,22 +92,23 @@ li {
   color: yellow;
   text-align: center;
   font-family: sans-serif;
-  font-size: 13px;
+  font-size: 0;
 }
 
 .targetGrid td.missed {
   cursor: auto;
-  background-color: blue;
+  background-color: whitesmoke;
   font-weight: bold;
   color: white;
   text-align: center;
   font-family: sans-serif;
-  font-size: 13px;
+  font-size: 0;
 }
 
 .userGrid {
   margin: 1em auto;
   border-collapse: collapse;
+  background-color: mediumseagreen;
 }
 
 .userGrid td {
@@ -119,8 +122,28 @@ li {
   /* change to 0 to hide */
 }
 
+.userGrid td.hit {
+  cursor: auto;
+  background-color: red;
+  font-weight: bold;
+  color: yellow;
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 13px;
+}
+
+.userGrid td.missed {
+  cursor: auto;
+  background-color: whitesmoke;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 13px;
+}
+
 #userGridID td {
-  border: 1px solid black;
+  /* border: 1px solid black; */
   cursor: auto;
   font-size: 13px;
 }
