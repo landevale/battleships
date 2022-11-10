@@ -348,6 +348,7 @@ const userPlacementGrid = userClickableGrid(
     console.log("You clicked on col:", col);
     console.log("You clicked on item #:", num);
     if (
+      userShip.isPlaced === false &&
       userWithinBounds(row, col, userDirection, userShip) === true &&
       userCheckOverlap(row, col, userDirection, userShip) === true
     ) {
