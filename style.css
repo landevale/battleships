@@ -18,6 +18,10 @@ li {
   list-style: none; /*removes the original numbering.*/
 }
 
+.userShipPlaced {
+  text-decoration: line-through;
+}
+
 /* .grid {
   height: 200px;
   width: 200px;

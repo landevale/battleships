@@ -191,6 +191,24 @@ placeCarrier.addEventListener("click", function () {
   userShip = userShipArray[4];
 });
 
+const updateFleetList = () => {
+  if (userShipArray[0].isPlaced === true) {
+    placePatrolBoat.className = "userShipPlaced";
+  }
+  if (userShipArray[1].isPlaced === true) {
+    placeSubmarine.className = "userShipPlaced";
+  }
+  if (userShipArray[2].isPlaced === true) {
+    placeDestroyer.className = "userShipPlaced";
+  }
+  if (userShipArray[3].isPlaced === true) {
+    placeBattleship.className = "userShipPlaced";
+  }
+  if (userShipArray[4].isPlaced === true) {
+    placeCarrier.className = "userShipPlaced";
+  }
+};
+
 //! Add event listener for the list of shits
 //! And on mouse over the cells, should change colours based on R/C, ship length, direction
 //! If I have time... should show a different color if illegal placement (outside grid or overlap)
@@ -347,8 +365,11 @@ const userPlacementGrid = userClickableGrid(
     console.log("You clicked on row:", row);
     console.log("You clicked on col:", col);
     console.log("You clicked on item #:", num);
-    if (
-      userShip.isPlaced === false &&
+    if (userShip.isPlaced === true) {
+      setUpDisplay.innerHTML = "You already placed this ship!";
+      console.log("Ship already placed.");
+      return false;
+    } else if (
       userWithinBounds(row, col, userDirection, userShip) === true &&
       userCheckOverlap(row, col, userDirection, userShip) === true
     ) {
@@ -359,8 +380,8 @@ const userPlacementGrid = userClickableGrid(
       console.log(userBoard);
       console.log(userShip.coordinates);
       setUpDisplay.innerHTML = `You placed your ${userShip.name}!`;
+      updateFleetList();
       //! Update HTML table here
-
       for (let r = 0; r < 10; r++) {
         for (let c = 0; c < 10; c++) {
           document.getElementById(`r${r}c${c}`).innerHTML = userBoard[r][c];
@@ -369,7 +390,7 @@ const userPlacementGrid = userClickableGrid(
       //
     } else {
       setUpDisplay.innerHTML = "You can't place ship here!";
-      console.log("CB FALSE");
+      console.log("GRID/OVERLAP FALSE");
       return false;
     }
   }
