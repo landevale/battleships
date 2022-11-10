@@ -926,11 +926,17 @@ const targetGrid = clickableGrid(10, 10, function (el, row, col, num) {
             console.log(shipArray[i].life);
             infoDisplay.innerHTML = "It's a hit!";
             el.className = "hit";
-            // compTurn(); /! might be causing computer to take 2 turns
 
             function checkForWins() {
               if (shipArray[i].life === 0) {
+                el.className = "sunk";
+
+                // loop thru shipArray[i].coordinates
                 infoDisplay.innerHTML = `You sunk the enemy's ${shipArray[i].name}!`;
+                // for (let j = 0; j < shipArray[i].size; j++) {
+                //   let sunkY === shipArray[i].coordinates[0 + j][0] &&
+                //     let sunkX === shipArray[i].coordinates[0 + j][1];
+                // }
               }
 
               if (
