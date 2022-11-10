@@ -209,6 +209,32 @@ const updateFleetList = () => {
   }
 };
 
+// const showConfirmButton = () => {
+//   for (let i = 0; i < userShipArray.length; i++) {
+//     if (userShipArray[i].isPlaced === true) {
+//       document.getElementById("confirmButton").style.display = "block";
+//     }
+//   }
+// };
+
+const checkAllUserPlaced = () => {
+  for (let i = 0; i < userShipArray.length; i++) {
+    if (userShipArray[i].isPlaced === false) {
+      console.log("NOT ALL PLACED YET");
+      return false;
+    }
+  }
+  console.log("ALL SHIPS PLACED");
+  return true;
+};
+const showConfirmButton = () => {
+  // console.log(checkAllUserPlaced());
+  if (checkAllUserPlaced() === true) {
+    setUpDisplay.innerHTML = `Fleet confirmed!`;
+    document.getElementById("confirmButton").style.display = "block";
+  }
+};
+
 //! Add event listener for the list of shits
 //! And on mouse over the cells, should change colours based on R/C, ship length, direction
 //! If I have time... should show a different color if illegal placement (outside grid or overlap)
@@ -226,8 +252,8 @@ const userCheckOverlap = (row, col, userDirection, userShip) => {
         console.log("Legal false Horizontal");
         return false;
       }
-      return true;
     }
+    return true;
   } else if (userDirection === 2) {
     for (let l = 0; l < userShip.size; l++) {
       if (userBoard[row + l][col] === 0) {
@@ -387,6 +413,7 @@ const userPlacementGrid = userClickableGrid(
           document.getElementById(`r${r}c${c}`).innerHTML = userBoard[r][c];
         }
       }
+      showConfirmButton();
       //
     } else {
       setUpDisplay.innerHTML = "You can't place ship here!";
