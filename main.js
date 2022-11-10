@@ -37,6 +37,7 @@ const main = () => {
   });
   $("#confirmButton").on("click", () => {
     game.page = "game";
+    $("#userGridDiv").append(userDisplayGrid(10, 10));
     render();
   });
   // $("#scoreButton").on("click", () => {
@@ -351,6 +352,27 @@ const userUpdateShipCoord = (row, col, userDirection, userShip) => {
 //     }
 // };
 
+//////////////
+//////////////
+const userDisplayGrid = (rows, cols) => {
+  let grid = document.createElement("table");
+  grid.className = "userGrid";
+  grid.setAttribute("id", "userGridID");
+  for (let r = 0; r < rows; ++r) {
+    let tr = grid.appendChild(document.createElement("tr"));
+    for (let c = 0; c < cols; ++c) {
+      let cell = tr.appendChild(document.createElement("td"));
+      cell.innerHTML = userBoard[r][c]; //++i
+      cell.setAttribute("id", `y${r}x${c}`);
+      let i = userBoard[r][c];
+    }
+  }
+  return grid;
+};
+
+//////////////
+//////////////
+
 const userClickableGrid = (rows, cols, callback) => {
   // var i = 0;
   let grid = document.createElement("table"); // $("<table>");
@@ -414,6 +436,7 @@ const userPlacementGrid = userClickableGrid(
         }
       }
       showConfirmButton();
+
       //
     } else {
       setUpDisplay.innerHTML = "You can't place ship here!";
@@ -802,22 +825,6 @@ let lastClicked; // to check if button was last clicked
 //   return grid;
 // };
 let turnCounter = 1;
-
-// const $nonClickableGrid = (rows, cols) => {
-//   // var i = 0;
-//   var grid = $("<table>").addClass("targetGrid").attr("id", "userGrid");
-//   for (let r = 0; r < rows; ++r) {
-//     const tr = grid.append($("<tr>"));
-//     for (let c = 0; c < cols; ++c) {
-//       const cell = tr.append($("<td>"));
-//       $("td").text(`${gameBoard[r][c]}`);
-//       //cell.innerHTML = ++i;
-//     }
-//   }
-//   return grid;
-// };
-// $("#setUpGridDiv").append($nonClickableGrid(10, 10));
-// $("#userGridDiv").append($nonClickableGrid(10, 10));
 
 function clickableGrid(rows, cols, callback) {
   // var i = 0;

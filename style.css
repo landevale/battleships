@@ -84,6 +84,7 @@ li {
   /* change to 0 to hide */
 }
 .targetGrid td.hit {
+  cursor: auto;
   background-color: red;
   font-weight: bold;
   color: yellow;
@@ -93,6 +94,7 @@ li {
 }
 
 .targetGrid td.missed {
+  cursor: auto;
   background-color: blue;
   font-weight: bold;
   color: white;
@@ -101,11 +103,27 @@ li {
   font-size: 13px;
 }
 
-#userGrid td {
-  border: 1px solid black;
-  cursor: auto;
+.userGrid {
+  margin: 1em auto;
+  border-collapse: collapse;
 }
 
+.userGrid td {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ccc;
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 13px;
+  /* change to 0 to hide */
+}
+
+#userGridID td {
+  border: 1px solid black;
+  cursor: auto;
+  font-size: 13px;
+}
 /* 
 RADAR START
 
